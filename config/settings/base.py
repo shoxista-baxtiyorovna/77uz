@@ -1,10 +1,11 @@
-
+import dj_database_url
 import os
 import sys
 from pathlib import Path
-
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -74,9 +75,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -141,3 +146,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "common.utils.custom_exception_handler.custom_exception_handler",  # noqa
 }
+
+# print("ENV:", os.getenv("DATABASE_URL"))
+# print("DATABASES CONFIGURED AS:")
+# print(DATABASES)
+# print("DATABASE URL:", os.getenv("DATABASE_URL"))
+# print("DATABASES CONFIGURED AS:")
+# print(os.getenv("DB_NAME"), os.getenv("DB_USER"), os.getenv("DB_PASSWORD"), os.getenv("DB_HOST"), os.getenv("DB_PORT"))
+
