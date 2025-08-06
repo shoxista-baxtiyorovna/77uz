@@ -1,7 +1,8 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+
 from .models import Page, Region
-from .serializers import PageListSerializer, PageDetailSerializer, RegionSerializer
 from .pagination import PagesPagination, RegionPagination
+from .serializers import PageDetailSerializer, PageListSerializer, RegionSerializer
 
 
 class PageListView(ListAPIView):
@@ -13,7 +14,7 @@ class PageListView(ListAPIView):
 class PageDetailView(RetrieveAPIView):
     queryset = Page.objects.all()
     serializer_class = PageDetailSerializer
-    lookup_field = 'slug'
+    lookup_field = "slug"
 
 
 class RegionWithDistrictsView(ListAPIView):

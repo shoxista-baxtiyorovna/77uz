@@ -8,27 +8,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Page',
+            name="Page",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('guid', models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, unique=True)),
-                ('created_time', models.DateTimeField(auto_now_add=True)),
-                ('updated_time', models.DateTimeField(auto_now=True)),
-                ('title', models.CharField(max_length=250)),
-                ('title_uz', models.CharField(max_length=250, null=True)),
-                ('title_ru', models.CharField(max_length=250, null=True)),
-                ('slug', models.SlugField(blank=True, unique=True)),
-                ('content', models.TextField()),
-                ('content_uz', models.TextField(null=True)),
-                ('content_ru', models.TextField(null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                (
+                    "guid",
+                    models.UUIDField(
+                        db_index=True, default=uuid.uuid4, editable=False, unique=True
+                    ),
+                ),
+                ("created_time", models.DateTimeField(auto_now_add=True)),
+                ("updated_time", models.DateTimeField(auto_now=True)),
+                ("title", models.CharField(max_length=250)),
+                ("title_uz", models.CharField(max_length=250, null=True)),
+                ("title_ru", models.CharField(max_length=250, null=True)),
+                ("slug", models.SlugField(blank=True, unique=True)),
+                ("content", models.TextField()),
+                ("content_uz", models.TextField(null=True)),
+                ("content_ru", models.TextField(null=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

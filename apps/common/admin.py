@@ -1,11 +1,12 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-from .models import Page, Region, District
+
+from .models import District, Page, Region
 
 
 @admin.register(Page)
 class PageAdmin(TranslationAdmin):
-    list_display = ('slug', 'title')
+    list_display = ("id", "slug", "title")
 
 
 @admin.register(Region)

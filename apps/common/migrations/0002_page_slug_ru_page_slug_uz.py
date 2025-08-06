@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0001_initial'),
+        ("common", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='slug_ru',
+            model_name="page",
+            name="slug_ru",
             field=models.SlugField(blank=True, null=True, unique=True),
         ),
         migrations.AddField(
-            model_name='page',
-            name='slug_uz',
+            model_name="page",
+            name="slug_uz",
             field=models.SlugField(blank=True, null=True, unique=True),
         ),
     ]
