@@ -1,8 +1,18 @@
-from modeltranslation.translator import translator, TranslationOptions
-from .models import Page
+from modeltranslation.translator import TranslationOptions, register
+
+from .models import District, Page, Region
 
 
+@register(Page)
 class PageTranslationOptions(TranslationOptions):
-    fields = ('title', 'content')
+    fields = ("title", "content")
 
-translator.register(Page, PageTranslationOptions)
+
+@register(Region)
+class RegionTranslationOptions(TranslationOptions):
+    fields = ("name",)
+
+
+@register(District)
+class DistrictTranslationOptions(TranslationOptions):
+    fields = ("name",)
