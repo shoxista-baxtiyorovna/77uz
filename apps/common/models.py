@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
-from django.utils.translation import get_language
 from django.utils.text import slugify
+
 
 
 class BaseModel(models.Model):
@@ -23,12 +23,31 @@ class Page(BaseModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            title_uz = getattr(self, 'title_uz', None)
-            if title_uz:
-                self.slug = slugify(title_uz)
-            else:
-                self.slug = slugify(self.title)
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+
+
+class Region(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class District(models.Model):
+    region = models.ForeignKey(Region, related_name='districts', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["name"]
+        unique_together = ['region', 'name']
+
+    def __str__(self):
+        return self.name
