@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import District, Page, Region
+from .models import District, Page, Region, Setting
 
 
 @register(Page)
@@ -16,3 +16,8 @@ class RegionTranslationOptions(TranslationOptions):
 @register(District)
 class DistrictTranslationOptions(TranslationOptions):
     fields = ("name",)
+
+
+@register(Setting)
+class SettingTranslationOptions(TranslationOptions):
+    fields = ("working_hours",)

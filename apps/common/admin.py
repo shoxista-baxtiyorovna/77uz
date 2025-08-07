@@ -1,7 +1,7 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
-from .models import District, Page, Region
+from .models import District, Page, Region, Setting
 
 
 @admin.register(Page)
@@ -18,3 +18,8 @@ class RegionAdmin(TranslationAdmin):
 class DistrictAdmin(TranslationAdmin):
     list_display = ("id", "name", "region")
     list_filter = ("region",)
+
+
+@admin.register(Setting)
+class SettingAdmin(TranslationAdmin):
+    list_display = ("id", "phone", "maintenance_mode")

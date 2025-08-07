@@ -1,8 +1,13 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from .models import Page, Region
+from .models import Page, Region, Setting
 from .pagination import PagesPagination, RegionPagination
-from .serializers import PageDetailSerializer, PageListSerializer, RegionSerializer
+from .serializers import (
+    PageDetailSerializer,
+    PageListSerializer,
+    RegionSerializer,
+    SettingSerializer,
+)
 
 
 class PageListView(ListAPIView):
@@ -21,3 +26,10 @@ class RegionWithDistrictsView(ListAPIView):
     queryset = Region.objects.prefetch_related("districts").all()
     serializer_class = RegionSerializer
     pagination_class = RegionPagination
+
+
+class SettingRetrieveView(RetrieveAPIView):
+    serializer_class = SettingSerializer
+
+    def get_object(self):
+        return Setting.objects.first()

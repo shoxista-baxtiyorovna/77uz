@@ -47,3 +47,14 @@ class District(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class Setting(BaseModel):
+    phone = models.CharField(max_length=20)
+    support_email = models.EmailField()
+    working_hours = models.CharField(max_length=100)
+    app_version = models.CharField(max_length=50)
+    maintenance_mode = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "Settings"
