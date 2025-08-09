@@ -34,9 +34,7 @@ THIRD_PARTY_APPS = [
     "django_cleanup.apps.CleanupSelectedConfig",
 ]
 
-LOCAL_APPS = [
-    "common",
-]
+LOCAL_APPS = ["common", "accounts"]
 INSTALLED_APPS = BASE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
@@ -146,3 +144,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "common.utils.custom_exception_handler.custom_exception_handler",  # noqa
 }
+
+AUTH_USER_MODEL = "accounts.CustomUser"
