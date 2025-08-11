@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from store.models import Category
 
 from .managers import CustomUserManager
 
@@ -25,6 +26,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         REJECTED = "rejected", "Rad etilgan"
 
     full_name = models.CharField(max_length=255)
+    project_name = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     phone_number = models.CharField(max_length=20, unique=True)
     profile_photo = models.ImageField(upload_to="profiles/", blank=True, null=True)
     address = models.OneToOneField(
