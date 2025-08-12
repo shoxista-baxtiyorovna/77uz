@@ -34,7 +34,7 @@ THIRD_PARTY_APPS = [
     "django_cleanup.apps.CleanupSelectedConfig",
 ]
 
-LOCAL_APPS = ["common", "accounts", "store"]
+LOCAL_APPS = ["common", "apps.accounts.apps.AccountsConfig", "store"]
 INSTALLED_APPS = BASE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
