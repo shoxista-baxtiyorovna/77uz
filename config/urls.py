@@ -19,11 +19,22 @@ import debug_toolbar
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/common/", include(("apps.common.urls", "common"), "common")),
-    path("api/v1/accounts/", include(("apps.accounts.urls", "accounts"), "accounts")),
+    path("chaining/", include("smart_selects.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),  # schema json
+    path(
+        "api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
+    ),  # swagger UI
+    path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),  # redoc UI
+    path("api/v1/common/", include(("common.urls", "common"), "common")),
+    path("api/v1/accounts/", include(("accounts.urls", "accounts"), "accounts")),
 ]
 
 if settings.DEBUG:

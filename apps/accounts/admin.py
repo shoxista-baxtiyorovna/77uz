@@ -1,27 +1,41 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from modeltranslation.admin import TranslationAdmin
+from modeltranslation.admin import TabbedTranslationAdmin
 
 from .models import Address, CustomUser
 
 
 @admin.register(Address)
-class AddressAdmin(TranslationAdmin):
+class AddressAdmin(TabbedTranslationAdmin):
     list_display = ("id", "name", "lat", "long")
     search_fields = ("name",)
 
 
 @admin.register(CustomUser)
-class CustomUserAdmin(TranslationAdmin, BaseUserAdmin):
+class CustomUserAdmin(TabbedTranslationAdmin, BaseUserAdmin):
     ordering = ("id",)
-    list_display = ("id", "full_name", "phone_number", "role", "is_active", "is_staff")
-    list_filter = ("role", "is_active", "is_staff")
+    list_display = ("id", "full_name", "phone_number", "role", "status", "is_active", "is_staff")
+    list_filter = ("role", "status", "is_active", "is_staff")
     search_fields = ("full_name", "phone_number")
 
     fieldsets = (
         (None, {"fields": ("phone_number", "password")}),
-        ("Shaxsiy ma'lumotlar", {"fields": ("full_name", "profile_photo", "address")}),
-        ("Rollar va huquqlar", {"fields": ("role", "is_active", "is_staff", "is_superuser")}),
+        (
+            "Shaxsiy ma'lumotlar",
+            {
+                "fields": (
+                    "full_name",
+                    "profile_photo",
+                    "address",
+                    "region",
+                    "district",
+                )
+            },
+        ),
+        (
+            "Rollar va huquqlar",
+            {"fields": ("role", "status", "is_active", "is_staff", "is_superuser")},
+        ),
         ("Tizim ma'lumotlari", {"fields": ("last_login",)}),
     )
 
@@ -36,6 +50,8 @@ class CustomUserAdmin(TranslationAdmin, BaseUserAdmin):
                     "password1",
                     "password2",
                     "role",
+                    "region",
+                    "district",
                     "is_active",
                     "is_staff",
                     "is_superuser",

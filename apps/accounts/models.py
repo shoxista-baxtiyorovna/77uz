@@ -1,5 +1,7 @@
+from common.models import District, Region
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from smart_selects.db_fields import ChainedForeignKey
 from store.models import Category
 
 from .managers import CustomUserManager
@@ -18,7 +20,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Roles(models.TextChoices):
         ADMIN = "admin", "Admin"
         SUPER_ADMIN = "super_admin", "Super Admin"
-        SELLER = "seller", "Seller"
+        SELLER = "seller", "Sotuvchi"
 
     class Status(models.TextChoices):
         PENDING = "pending", "Kutilmoqda"
@@ -35,6 +37,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     role = models.CharField(max_length=20, choices=Roles.choices, default=Roles.SELLER)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    region = models.ForeignKey(
+        Region, on_delete=models.SET_NULL, related_name="users", null=True, blank=True
+    )
+    district = ChainedForeignKey(
+        District,
+        chained_field="region",
+        chained_model_field="region",
+        show_all=False,
+        auto_choose=True,
+        sort=True,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
