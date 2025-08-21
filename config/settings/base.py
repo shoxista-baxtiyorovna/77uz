@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     "drf_yasg",
     "drf_spectacular",
     "django_extensions",
+    "django_filters",
     "django_cleanup.apps.CleanupSelectedConfig",
 ]
 
@@ -152,6 +153,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     # noqa
 }
 
